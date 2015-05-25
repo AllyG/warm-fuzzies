@@ -1,12 +1,19 @@
-#content {
-	max-width: 500px;
-	margin: 0 auto;
-	font-family: monospace;
+body {
+	margin: 0;
+		background-color: #F3EAD7;
 }
 
 #header {
 	margin: 0 auto;
-	padding-top: 50px;
+	padding: 50px;
+	margin-bottom: 50px;
+	background-color: #DBD7C5;
+}
+
+#content {
+	max-width: 500px;
+	margin: 0 auto;
+	font-family: monospace;
 }
 
 img {
@@ -18,6 +25,12 @@ img {
 h1 {
 	font-family: monospace;
 	font-size: 48px;
+	text-align: center;
+}
+
+.commentBox > h2 {
+	font-family: monospace;
+	font-size: 36px;
 	text-align: center;
 }
 

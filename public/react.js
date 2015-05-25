@@ -96,7 +96,7 @@ var CommentBox = React.createClass({
 	render: function() {
 		return(
 			<div className="commentBox" >
-				<h1>Warm Fuzzies</h1>
+				<h2>Warm Fuzzies</h2>
 				<CommentList data={this.state.data} />
 				<CommentForm onCommentSubmit={this.handleCommentSubmit} />
 			</div>
