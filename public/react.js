@@ -55,16 +55,25 @@ var CommentForm = React.createClass({
 
 
 var CommentBox = React.createClass({
+	getDefaultProps: function () {
+		return {
+			pollInterval: 10000
+		};
+	},
 	loadCommentsFromServer: function() {
 		$.ajax({
 			url: this.props.url,
 			dataType: 'json',
 			cache: false,
 			success: function(data) {
-				this.setState({data: data});
+				if (this.isMounted())
+					this.setState({data: data});
 			}.bind(this),
 			error: function(xhr, status, err) {
 				console.error(this.props.url, status, err.toString());
+			}.bind(this),
+			complete: function (xhr, status, err) {
+				setTimeout(this.loadCommentsFromServer, this.props.pollInterval);
 			}.bind(this)
 		});
 	},
@@ -78,7 +87,8 @@ var CommentBox = React.createClass({
 			type: 'POST',
 			data: comment,
 			success: function(data) {
-				this.setState({data: data});
+				if (this.isMounted())
+					this.setState({data: data});
 			}.bind(this),
 			error: function(xhr, status, err) {
 				console.error(this.props.url, status, err.toString());
@@ -91,7 +101,6 @@ var CommentBox = React.createClass({
 	//method called automatically by React when a component is rendered
 	componentDidMount: function() {
 		this.loadCommentsFromServer();
-		setInterval(this.loadCommentsFromServer, this.props.pollInterval);
 	},
 	render: function() {
 		return(
@@ -105,6 +114,6 @@ var CommentBox = React.createClass({
 });
 
 React.render(
-	<CommentBox url="comments.json" />,
+	<CommentBox url="comments.json" pollInterval={ 7500 } />,
 	document.getElementById('content')
 );
